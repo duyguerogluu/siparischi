@@ -9,13 +9,18 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
+using System.Web.Http.Results;
+using System.Web.Mvc;
+using AuthorizeAttribute = System.Web.Http.AuthorizeAttribute;
 
 namespace WebApi.Controllers
 {
     public class BusinessWorkTypeController : ApiController
     {
-        public string GetList()
+        [Authorize]
+        public HttpResponseMessage GetList()
         {
+            DataTable dataTable = new DataTable();
             try
             {
                 string constr = ConfigurationManager.ConnectionStrings["webapi"].ConnectionString;
@@ -24,24 +29,21 @@ namespace WebApi.Controllers
                     con.Open();
                     {
                         SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select * from businessworktype", con);
-                        DataTable dataTable = new DataTable();
                         sqlDataAdapter.Fill(dataTable);
                         if (dataTable.Rows.Count > 0)
                         {
-                            string jsonString = string.Empty;
-                            jsonString = JsonConvert.SerializeObject(dataTable);
-                            return jsonString;
+                            return Request.CreateResponse(HttpStatusCode.OK,dataTable);
                         }
                         else
                         {
-                            return "Henüz veri yok!";
+                            return Request.CreateResponse(HttpStatusCode.OK, dataTable);
                         }
                     }
                 }
             }
             catch (Exception)
             {
-                return "Bağlantı sağlanamadı";
+                return Request.CreateResponse(HttpStatusCode.OK, dataTable);
             }
         }
 
