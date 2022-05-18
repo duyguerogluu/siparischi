@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
-
+using WebApi.Security;
 
 namespace WebApi
 {
@@ -13,6 +13,7 @@ namespace WebApi
             // Web API configuration and services
             // Web API routes
             config.MapHttpAttributeRoutes();
+            config.MessageHandlers.Add(new APIKeyHandler());
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

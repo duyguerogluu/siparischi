@@ -13,6 +13,8 @@ namespace WebApi.Security
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
             var queryString = request.RequestUri.ParseQueryString();
+            var apiKey = queryString["apiKey"];
+
             return base.SendAsync(request, cancellationToken);
         }
     }
