@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4a2b178667c24f499e0ed99f9de682b3" Name="Diagram1">
+      <Diagram DiagramId="2a44a17f192741c48bbef520d5773703" Name="Diagram1">
         <EntityTypeShape EntityType="SiparischiModel.Admin" Width="1.5" PointX="7.75" PointY="6.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SiparischiModel.Business" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.BusinessHour" Width="1.5" PointX="10" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.BusinessRating" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.BusinessType" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.BusinessWorkType" Width="1.5" PointX="7.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.Campaign" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.Category" Width="1.5" PointX="5.25" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.BusinessHour" Width="1.5" PointX="10" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.BusinessRating" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.BusinessType" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.BusinessWorkType" Width="1.5" PointX="7.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.Campaign" Width="1.5" PointX="5.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.Category" Width="1.5" PointX="5.25" PointY="10.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SiparischiModel.OrderType" Width="1.5" PointX="0.75" PointY="11.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.Product" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="SiparischiModel.ProductRating" Width="1.5" PointX="9.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.Product" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SiparischiModel.ProductRating" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SiparischiModel.User" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SiparischiModel.FK_Business_BusinessType" ManuallyRouted="false" />
         <AssociationConnector Association="SiparischiModel.FK_BusinessRating_Business" ManuallyRouted="false" />

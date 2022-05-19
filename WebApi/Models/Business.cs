@@ -37,6 +37,7 @@ namespace WebApi.Models
         public string image_name { get; set; }
         public string location { get; set; }
         public Nullable<int> business_type_id { get; set; }
+        public string business_key { get; set; }
     
         public virtual BusinessType BusinessType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

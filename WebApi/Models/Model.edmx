@@ -13,6 +13,7 @@
           <Property Name="username" Type="varchar" MaxLength="24" />
           <Property Name="password" Type="varchar" MaxLength="16" />
           <Property Name="status" Type="varchar" MaxLength="30" />
+          <Property Name="admin_key" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Business">
           <Key>
@@ -33,6 +34,7 @@
           <Property Name="image_name" Type="varchar" MaxLength="100" />
           <Property Name="location" Type="varchar" MaxLength="100" />
           <Property Name="business_type_id" Type="int" />
+          <Property Name="business_key" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="BusinessHours">
           <Key>
@@ -132,6 +134,7 @@
           <Property Name="address" Type="varchar" MaxLength="100" />
           <Property Name="creation_date" Type="date" />
           <Property Name="location" Type="varchar" MaxLength="100" />
+          <Property Name="user_key" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Business_BusinessType">
           <End Role="BusinessType" Type="Self.BusinessType" Multiplicity="0..1" />
@@ -304,6 +307,7 @@
           <Property Name="username" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
           <Property Name="status" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="admin_key" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Business">
           <Key>
@@ -324,6 +328,7 @@
           <Property Name="image_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="business_type_id" Type="Int32" />
+          <Property Name="business_key" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BusinessType" Relationship="Self.FK_Business_BusinessType" FromRole="Business" ToRole="BusinessType" />
           <NavigationProperty Name="BusinessRatings" Relationship="Self.FK_BusinessRating_Business" FromRole="Business" ToRole="BusinessRating" />
           <NavigationProperty Name="Campaigns" Relationship="Self.FK_Campaign_Business" FromRole="Business" ToRole="Campaign" />
@@ -439,6 +444,7 @@
           <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="creation_date" Type="DateTime" Precision="0" />
           <Property Name="location" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="user_key" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="BusinessRatings" Relationship="Self.FK_BusinessRating_User" FromRole="User" ToRole="BusinessRating" />
           <NavigationProperty Name="ProductRatings" Relationship="Self.FK_ProductRating_User" FromRole="User" ToRole="ProductRating" />
         </EntityType>
@@ -613,6 +619,7 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="admin_key" ColumnName="admin_key" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -634,6 +641,7 @@
                 <ScalarProperty Name="image_name" ColumnName="image_name" />
                 <ScalarProperty Name="location" ColumnName="location" />
                 <ScalarProperty Name="business_type_id" ColumnName="business_type_id" />
+                <ScalarProperty Name="business_key" ColumnName="business_key" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -743,6 +751,7 @@
                 <ScalarProperty Name="address" ColumnName="address" />
                 <ScalarProperty Name="creation_date" ColumnName="creation_date" />
                 <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="user_key" ColumnName="user_key" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
