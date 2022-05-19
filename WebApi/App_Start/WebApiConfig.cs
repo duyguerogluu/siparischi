@@ -49,6 +49,11 @@ namespace WebApi
                 routeTemplate: "api/{controller}/{id}/{useroldpassword}/{usernewpassword}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name: "bussinessLogin",
+                routeTemplate: "api/{controller}/{business_name}/{password}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
