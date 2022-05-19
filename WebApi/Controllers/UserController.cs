@@ -57,7 +57,7 @@ namespace WebApi.Controllers
                         {
                             SqlConnection FDataConnect = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ToString());
                             FDataConnect.Open();
-                            SqlDataAdapter FDataAdapter = new SqlDataAdapter(string.Format("select username from user where rtrim(username) = '" + username.Trim() + "'"), FDataConnect);
+                            SqlDataAdapter FDataAdapter = new SqlDataAdapter(string.Format("select username from [user] where rtrim(username) = '" + username.Trim() + "'"), FDataConnect);
                             DataTable dataTable = new DataTable();
                             FDataAdapter.Fill(dataTable);
                             if (dataTable.Rows.Count > 0)
@@ -70,7 +70,7 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("insert into user (username,password,status,phone_number,email,address,creation_date,location) values (@username,@password,'Aktif',@phone_number,@email,@address,@creation_date,@location)", con))
+                                        using (SqlCommand cmd = new SqlCommand("insert into [user] (username,password,status,phone_number,email,address,creation_date,location) values (@username,@password,'Aktif',@phone_number,@email,@address,@creation_date,@location)", con))
                                         {
                                             cmd.Parameters.AddWithValue("@username", username);
                                             cmd.Parameters.AddWithValue("@password", password);
@@ -98,7 +98,7 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("update user set username=@username, password=@password, status=@status where id=@id", con))
+                                        using (SqlCommand cmd = new SqlCommand("update [user] set username=@username, password=@password, status=@status where id=@id", con))
                                         {
                                             cmd.Parameters.AddWithValue("@id", id);
                                             cmd.Parameters.AddWithValue("@username", username);
@@ -138,7 +138,7 @@ namespace WebApi.Controllers
 
         }
     
-        public string GetPasswordReset(string id, string useroldpassword, string usernewpassword)
+        public string GetPasswordReset(string id, string oldpassword, string newpassword)
         {
             try
             {
@@ -151,17 +151,17 @@ namespace WebApi.Controllers
                         {
                             SqlConnection FDataConnect = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ToString());
                             FDataConnect.Open();
-                            SqlDataAdapter FDataAdapter = new SqlDataAdapter(string.Format("select password from user where id=" + id), FDataConnect);
+                            SqlDataAdapter FDataAdapter = new SqlDataAdapter(string.Format("select password from [user] where id=" + id), FDataConnect);
                             DataTable dataTable = new DataTable();
                             FDataAdapter.Fill(dataTable);
                             if (dataTable.Rows.Count > 0)
                             {
-                                if (dataTable.Rows[0].ItemArray[0].ToString() == useroldpassword) 
+                                if (dataTable.Rows[0].ItemArray[0].ToString() == oldpassword) 
                                 {
-                                    using (SqlCommand cmd = new SqlCommand("update user set password=@password where id=@id", con))
+                                    using (SqlCommand cmd = new SqlCommand("update [user] set password=@password where id=@id", con))
                                     {
                                         cmd.Parameters.AddWithValue("@id", id);
-                                        cmd.Parameters.AddWithValue("@password", usernewpassword);
+                                        cmd.Parameters.AddWithValue("@password", newpassword);
                                         int i = cmd.ExecuteNonQuery();
                                         con.Close();
                                         if (i == 1)
