@@ -39,6 +39,16 @@ namespace WebApi
                 routeTemplate: "api/{controller}/{action}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name: "userRegister",
+                routeTemplate: "api/{controller}/{id}/{username}/{password}/{status}/{phone_number}/{email}/{address}/{creation_date}/{location}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
+                name: "userPasswordReset",
+                routeTemplate: "api/{controller}/{id}/{useroldpassword}/{usernewpassword}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
