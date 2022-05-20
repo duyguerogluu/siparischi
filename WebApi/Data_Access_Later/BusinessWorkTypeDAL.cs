@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using WebApi.Models;
+using System.Data.Entity;
 
 namespace WebApi.Data_Access_Later
 {
@@ -10,7 +11,7 @@ namespace WebApi.Data_Access_Later
     {
         public IEnumerable<BusinessWorkType> GetAllBusinessWorkTypes()
         {
-            return db.BusinessWorkTypes;
+            return db.BusinessWorkTypes.ToList();
         }
 
         public BusinessWorkType GetBusinessWorkTypesById(int id)
@@ -27,7 +28,7 @@ namespace WebApi.Data_Access_Later
 
         public BusinessWorkType UpdateBusinessWorkType(int id, BusinessWorkType businessWorkType)
         {
-            db.Entry(businessWorkType).State = System.Data.Entity.EntityState.Modified;
+            db.Entry(businessWorkType).State = EntityState.Modified;
             db.SaveChanges();
             return businessWorkType;
         }
@@ -36,6 +37,11 @@ namespace WebApi.Data_Access_Later
         {
             db.BusinessWorkTypes.Remove(db.BusinessWorkTypes.Find(id));
             db.SaveChanges();
+        }
+
+        public bool IsThereAnyBusinessWorkType(int id)
+        {
+            return db.BusinessWorkTypes.Any(x => x.id == id);
         }
     }
 }
