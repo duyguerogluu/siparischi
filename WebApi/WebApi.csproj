@@ -130,6 +130,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\BusinessHourController.cs" />
+    <Compile Include="Controllers\OrderTypeController.cs" />
+    <Compile Include="Data_Access_Later\BusinessHourDAL.cs" />
+    <Compile Include="Data_Access_Later\OrderTypeDAL.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

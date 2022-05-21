@@ -22,6 +22,7 @@ namespace WebApi.Models
         }
     
         public int id { get; set; }
+
         [Required(ErrorMessage = "Çalýþma türü boþ geçilemez.")]
         public string work_type { get; set; }
     

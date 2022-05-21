@@ -23,28 +23,26 @@ namespace WebApi.Controllers
     {
         BusinessWorkTypeDAL businessWorkTypeDAL = new BusinessWorkTypeDAL();
 
-        [ResponseType(typeof(IEnumerable<BusinessWorkType>))]
         [Authorize]
-        public IHttpActionResult Get()//https://localhost:44378/api/BusinessWorkType?apiKey=1
+        public HttpResponseMessage Get()//https://localhost:44378/api/BusinessWorkType?apiKey=1
         {
             var businessworktype = businessWorkTypeDAL.GetAllBusinessWorkTypes();
             if (businessworktype != null)
-                return Ok(businessworktype);
+                return Request.CreateResponse(HttpStatusCode.OK, businessworktype);
             else
-                return NotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
         }
 
-        [ResponseType(typeof(IEnumerable<BusinessWorkType>))]
         [Authorize]
-        public IHttpActionResult Get(int id)//https://localhost:44378/api/BusinessWorkType/get/1?apiKey=1
+        public HttpResponseMessage Get(int id)//https://localhost:44378/api/BusinessWorkType/get/1?apiKey=1
         {
             var businessworktype = businessWorkTypeDAL.GetBusinessWorkTypesById(id);
             if (businessworktype != null)
-                return Ok(businessworktype);
+                return Request.CreateResponse(HttpStatusCode.OK, businessWorkTypeDAL.GetBusinessWorkTypesById(id));
             else
-                return NotFound();
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
         }
-        [ResponseType(typeof(IEnumerable<BusinessWorkType>))]
+
         [Authorize]
         public HttpResponseMessage Post(BusinessWorkType businessWorkType)//https://localhost:44378/api/BusinessWorkType?apiKey=1 ---> Content: {"work_type":"Hergün"}
         {
@@ -60,9 +58,9 @@ namespace WebApi.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
-        [ResponseType(typeof(IEnumerable<BusinessWorkType>))]
+
         [Authorize]
-        public HttpResponseMessage Put(int id, BusinessWorkType businessWorkType)
+        public HttpResponseMessage Put(int id, BusinessWorkType businessWorkType)//https://localhost:44378/api/businessworktype/put/3?apiKey=1 ---> Content: {"work_type":"Hergün"}
         {
             //id ye ait kayıt yoksa
             if (!businessWorkTypeDAL.IsThereAnyBusinessWorkType(id))
@@ -77,11 +75,12 @@ namespace WebApi.Controllers
             //OK
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK,businessWorkTypeDAL.UpdateBusinessWorkType(id,businessWorkType));
+                return Request.CreateResponse(HttpStatusCode.OK,businessWorkTypeDAL.UpdateBusinessWorkType(businessWorkType));
             }
         }
-
-        public HttpResponseMessage Delete(int id)
+        
+        [Authorize]
+        public HttpResponseMessage Delete(int id)//https://localhost:44378/api/businessworktype/delete/3?apiKey=1
         {
             //id ye ait kayıt yoksa
             if (businessWorkTypeDAL.IsThereAnyBusinessWorkType(id) == false)
@@ -95,6 +94,5 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
         }
-
     }
 }

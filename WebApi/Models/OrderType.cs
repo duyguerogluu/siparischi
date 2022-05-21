@@ -11,10 +11,13 @@ namespace WebApi.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class OrderType
     {
         public int id { get; set; }
+
+        [Required(ErrorMessage = "Sipariþ türü boþ geçilemez.")]
         public string order_type { get; set; }
     }
 }

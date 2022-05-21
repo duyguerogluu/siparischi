@@ -14,9 +14,9 @@ namespace WebApi.Data_Access_Later
             return db.BusinessWorkTypes.ToList();
         }
 
-        public BusinessWorkType GetBusinessWorkTypesById(int id)
+        public IEnumerable<BusinessWorkType> GetBusinessWorkTypesById(int id)
         {
-            return db.BusinessWorkTypes.Find(id);
+            return db.BusinessWorkTypes.Where(x => x.id == id).ToList();
         }
 
         public BusinessWorkType CreateBusinessWorkType(BusinessWorkType businessWorkType)
@@ -26,10 +26,10 @@ namespace WebApi.Data_Access_Later
             return businessWorkType;
         }
 
-        public BusinessWorkType UpdateBusinessWorkType(int id, BusinessWorkType businessWorkType)
+        public BusinessWorkType UpdateBusinessWorkType(BusinessWorkType businessWorkType)
         {
             db.Entry(businessWorkType).State = EntityState.Modified;
-            db.SaveChanges();
+            //db.SaveChanges();
             return businessWorkType;
         }
 
