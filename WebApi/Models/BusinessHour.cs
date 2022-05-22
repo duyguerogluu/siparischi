@@ -28,7 +28,7 @@ namespace WebApi.Models
 
         [Required(ErrorMessage = "Ýþletme çalýþma türü boþ geçilemez.")]
         public Nullable<int> business_work_type_id { get; set; }
-    
+
         public virtual BusinessWorkType BusinessWorkType { get; set; }
     }
 }

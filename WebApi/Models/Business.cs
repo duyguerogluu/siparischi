@@ -23,8 +23,9 @@ namespace WebApi.Models
         }
     
         public int id { get; set; }
-        public string business_name { get; set; }
+        public string username { get; set; }
         public string password { get; set; }
+        public string business_name { get; set; }
         public string status { get; set; }
         public string phone_number { get; set; }
         public string email { get; set; }

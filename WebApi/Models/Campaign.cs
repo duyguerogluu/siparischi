@@ -16,7 +16,6 @@ namespace WebApi.Models
     public partial class Campaign
     {
         public int id { get; set; }
-
         [Required(ErrorMessage = "Kampanya adý geçilemez.")]
         public string campaign_name { get; set; }
 
@@ -28,7 +27,7 @@ namespace WebApi.Models
 
         [Required(ErrorMessage = "Ýþletme boþ geçilemez.")]
         public Nullable<int> business_id { get; set; }
-    
+
         public virtual Business Business { get; set; }
     }
 }
