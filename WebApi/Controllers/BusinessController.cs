@@ -12,7 +12,7 @@ namespace WebApi.Controllers
 {
     public class BusinessController : ApiController
     {
-        public string GetLogin(string business_name, string password)
+        public string GetLogin(string username, string password)
         {
             try
             {
@@ -22,7 +22,7 @@ namespace WebApi.Controllers
                     con.Open();
                     {
                         SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select * from business where " +
-                            "(business_name='" + business_name + "') and " +
+                            "(username='" + username + "') and " +
                             "(password='" + password + "')", con);
                         DataTable dataTable = new DataTable();
                         sqlDataAdapter.Fill(dataTable);
@@ -44,7 +44,7 @@ namespace WebApi.Controllers
 
         }
     
-        public string GetRegister(string id, string business_name, string password, string status, string phone_number, string email, string city, string district, string neighbourhood, string situation, string starting_date, string ending_date, string image_name, string location, string business_type_id)
+        public string GetRegister(string id, string username, string password, string business_name, string status, string phone_number, string email, string city, string district, string neighbourhood, string situation, string starting_date, string ending_date, string image_name, string location, string business_type_id)
             
         {
             try
@@ -58,7 +58,7 @@ namespace WebApi.Controllers
                         {
                             SqlConnection FDataConnect = new SqlConnection(ConfigurationManager.ConnectionStrings["webapi"].ToString());
                             FDataConnect.Open();
-                            SqlDataAdapter FDataAdapter = new SqlDataAdapter(string.Format("select business_name from business where rtrim(business_name) = '" + business_name.Trim() + "'"), FDataConnect);
+                            SqlDataAdapter FDataAdapter = new SqlDataAdapter(string.Format("select username from business where rtrim(username) = '" + username.Trim() + "'"), FDataConnect);
                             DataTable dataTable = new DataTable();
                             FDataAdapter.Fill(dataTable);
                             if (dataTable.Rows.Count > 0)
@@ -71,10 +71,11 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("insert into business (business_name,password,status,phone_number,email,city,district,neighbourhood,situation,starting_date,ending_date,image_name,location,business_type_id) values (@business_name,@password,@status,@phone_number,@email,@city,@district,@neighbourhood,@situation,@starting_date,@ending_date,@image_name,@location,@business_type_id)", con))
+                                        using (SqlCommand cmd = new SqlCommand("insert into business (username,password,business_name,status,phone_number,email,city,district,neighbourhood,situation,starting_date,ending_date,image_name,location,business_type_id) values (@username,@password,@business_name,@status,@phone_number,@email,@city,@district,@neighbourhood,@situation,@starting_date,@ending_date,@image_name,@location,@business_type_id)", con))
                                         {
-                                            cmd.Parameters.AddWithValue("@business_name", business_name);
+                                            cmd.Parameters.AddWithValue("@username", username);
                                             cmd.Parameters.AddWithValue("@password", password);
+                                            cmd.Parameters.AddWithValue("@business_name", business_name);
                                             cmd.Parameters.AddWithValue("@status", status);
                                             cmd.Parameters.AddWithValue("@phone_number", phone_number);
                                             cmd.Parameters.AddWithValue("@email", email);
@@ -105,11 +106,12 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("update business set username=@username, password=@password, status=@status, phone_number=@phone_number, email=@email, city=@city, district=@district, neighbourhood=@neighbourhood, situation=@situation, starting_date=@starting_date, ending_date=@ending_date, image_name=@image_name, location=@location, business_type_id=@business_type_id  where id=@id", con))
+                                        using (SqlCommand cmd = new SqlCommand("update business set username=@username, password=@password, business_name=@business_name, status=@status, phone_number=@phone_number, email=@email, city=@city, district=@district, neighbourhood=@neighbourhood, situation=@situation, starting_date=@starting_date, ending_date=@ending_date, image_name=@image_name, location=@location, business_type_id=@business_type_id  where id=@id", con))
                                         {
                                             cmd.Parameters.AddWithValue("@id", id);
-                                            cmd.Parameters.AddWithValue("@business_name", business_name);
+                                            cmd.Parameters.AddWithValue("@username", username);
                                             cmd.Parameters.AddWithValue("@password", password);
+                                            cmd.Parameters.AddWithValue("@business_name", business_name);
                                             cmd.Parameters.AddWithValue("@status", status);
                                             cmd.Parameters.AddWithValue("@phone_number", phone_number);
                                             cmd.Parameters.AddWithValue("@email", email);

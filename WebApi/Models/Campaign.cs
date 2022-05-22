@@ -11,13 +11,22 @@ namespace WebApi.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Campaign
     {
         public int id { get; set; }
+
+        [Required(ErrorMessage = "Kampanya adý geçilemez.")]
         public string campaign_name { get; set; }
+
+        [Required(ErrorMessage = "Baþlangýç tarihi boþ geçilemez.")]
         public Nullable<System.DateTime> starting_date { get; set; }
+
+        [Required(ErrorMessage = "Bitiþ tarihi boþ geçilemez.")]
         public Nullable<System.DateTime> ending_date { get; set; }
+
+        [Required(ErrorMessage = "Ýþletme boþ geçilemez.")]
         public Nullable<int> business_id { get; set; }
     
         public virtual Business Business { get; set; }
