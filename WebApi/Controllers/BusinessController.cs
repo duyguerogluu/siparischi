@@ -44,8 +44,8 @@ namespace WebApi.Controllers
 
         }
     
-        public string GetRegister(string id, string business_name, string password, string status, string phone_number
-            )
+        public string GetRegister(string id, string business_name, string password, string status, string phone_number, string email, string city, string district, string neighbourhood, string situation, string starting_date, string ending_date, string image_name, string location, string business_type_id)
+            
         {
             try
             {
@@ -71,10 +71,22 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("insert into business (business_name,password,status) values (@business_name,@password,'Aktif')", con))
+                                        using (SqlCommand cmd = new SqlCommand("insert into business (business_name,password,status,phone_number,email,city,district,neighbourhood,situation,starting_date,ending_date,image_name,location,business_type_id) values (@business_name,@password,@status,@phone_number,@email,@city,@district,@neighbourhood,@situation,@starting_date,@ending_date,@image_name,@location,@business_type_id)", con))
                                         {
                                             cmd.Parameters.AddWithValue("@business_name", business_name);
                                             cmd.Parameters.AddWithValue("@password", password);
+                                            cmd.Parameters.AddWithValue("@status", status);
+                                            cmd.Parameters.AddWithValue("@phone_number", phone_number);
+                                            cmd.Parameters.AddWithValue("@email", email);
+                                            cmd.Parameters.AddWithValue("@city", city);
+                                            cmd.Parameters.AddWithValue("@district", district);
+                                            cmd.Parameters.AddWithValue("@neighbourhood", neighbourhood);
+                                            cmd.Parameters.AddWithValue("@situation", situation);
+                                            cmd.Parameters.AddWithValue("@starting_date", starting_date);
+                                            cmd.Parameters.AddWithValue("@ending_date", ending_date);
+                                            cmd.Parameters.AddWithValue("@image_name", image_name);
+                                            cmd.Parameters.AddWithValue("@location", location);
+                                            cmd.Parameters.AddWithValue("@business_type_id", business_type_id);
                                             int i = cmd.ExecuteNonQuery();
                                             con.Close();
                                             if (i == 1)
@@ -93,12 +105,23 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("update admin set username=@username, password=@password, status=@status where id=@id", con))
+                                        using (SqlCommand cmd = new SqlCommand("update business set username=@username, password=@password, status=@status, phone_number=@phone_number, email=@email, city=@city, district=@district, neighbourhood=@neighbourhood, situation=@situation, starting_date=@starting_date, ending_date=@ending_date, image_name=@image_name, location=@location, business_type_id=@business_type_id  where id=@id", con))
                                         {
                                             cmd.Parameters.AddWithValue("@id", id);
                                             cmd.Parameters.AddWithValue("@business_name", business_name);
                                             cmd.Parameters.AddWithValue("@password", password);
                                             cmd.Parameters.AddWithValue("@status", status);
+                                            cmd.Parameters.AddWithValue("@phone_number", phone_number);
+                                            cmd.Parameters.AddWithValue("@email", email);
+                                            cmd.Parameters.AddWithValue("@city", city);
+                                            cmd.Parameters.AddWithValue("@district", district);
+                                            cmd.Parameters.AddWithValue("@neighbourhood", neighbourhood);
+                                            cmd.Parameters.AddWithValue("@situation", situation);
+                                            cmd.Parameters.AddWithValue("@starting_date", starting_date);
+                                            cmd.Parameters.AddWithValue("@ending_date", ending_date);
+                                            cmd.Parameters.AddWithValue("@image_name", image_name);
+                                            cmd.Parameters.AddWithValue("@location", location);
+                                            cmd.Parameters.AddWithValue("@business_type_id", business_type_id);
                                             int i = cmd.ExecuteNonQuery();
                                             con.Close();
                                             if (i == 1)
@@ -133,7 +156,8 @@ namespace WebApi.Controllers
             try
             {
                 string constr = ConfigurationManager.ConnectionStrings["webapi"].ConnectionString;
-                using (SqlConnection con = new SqlConnection(constr))
+                using (
+                    SqlConnection con = new SqlConnection(constr))
                 {
                     con.Open();
                     {

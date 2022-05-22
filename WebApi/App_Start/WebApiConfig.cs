@@ -50,6 +50,16 @@ namespace WebApi
                 routeTemplate: "api/{controller}/{business_name}/{password}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            config.Routes.MapHttpRoute(
+                name: "businessRegister",
+                routeTemplate: "api/{controller}/{id}/{business_name}/{password}/{status}/{phone_number}/{email}/{city}/{district}/{neighbourhood}/{situation}/{starting_date}/{ending_date}/{image_name}/{location}/{business_type_id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
+                name: "businessPasswordReset",
+                routeTemplate: "api/{controller}/{id}/{oldpassword}/{newpassword}",
+                defaults: new { id = RouteParameter.Optional }
+            );
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
