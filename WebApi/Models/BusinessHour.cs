@@ -11,13 +11,22 @@ namespace WebApi.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BusinessHour
     {
         public int id { get; set; }
+
+        [Required(ErrorMessage = "Açýlýþ saati boþ geçilemez.")]
         public Nullable<System.TimeSpan> opening_hour { get; set; }
+
+        [Required(ErrorMessage = "Kapanýþ saati boþ geçilemez.")]
         public Nullable<System.TimeSpan> closing_hour { get; set; }
+
+        [Required(ErrorMessage = "Ýþletme boþ geçilemez.")]
         public Nullable<int> business_id { get; set; }
+
+        [Required(ErrorMessage = "Ýþletme çalýþma türü boþ geçilemez.")]
         public Nullable<int> business_work_type_id { get; set; }
     
         public virtual BusinessWorkType BusinessWorkType { get; set; }

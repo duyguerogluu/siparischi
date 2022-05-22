@@ -2,34 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using WebApi.Models;
+using System.Data.Entity;
 
 namespace WebApi.Data_Access_Later
 {
-    public class BusinessWorkTypeDAL
+    public class BusinessWorkTypeDAL : BaseDAL
     {
-        Models.SiparischiEntities db = new Models.SiparischiEntities();
-
-        public IEnumerable<Models.BusinessWorkType> GetAllBusinessWorkTypes()
+        public IEnumerable<BusinessWorkType> GetAllBusinessWorkTypes()
         {
-            return db.BusinessWorkTypes;
+            return db.BusinessWorkTypes.ToList();
         }
 
-        public Models.BusinessWorkType GetBusinessWorkTypesById(int id)
+        public IEnumerable<BusinessWorkType> GetBusinessWorkTypesById(int id)
         {
-            return db.BusinessWorkTypes.Find(id);
+            return db.BusinessWorkTypes.Where(x => x.id == id).ToList();
         }
 
-        public Models.BusinessWorkType CreateBusinessWorkType(Models.BusinessWorkType businessWorkType)
+        public BusinessWorkType CreateBusinessWorkType(BusinessWorkType businessWorkType)
         {
             db.BusinessWorkTypes.Add(businessWorkType);
             db.SaveChanges();
             return businessWorkType;
         }
 
-        public Models.BusinessWorkType UpdateBusinessWorkType(int id, Models.BusinessWorkType businessWorkType)
+        public BusinessWorkType UpdateBusinessWorkType(BusinessWorkType businessWorkType)
         {
-            db.Entry(businessWorkType).State = System.Data.Entity.EntityState.Modified;
-            db.SaveChanges();
+            db.Entry(businessWorkType).State = EntityState.Modified;
+            //db.SaveChanges();
             return businessWorkType;
         }
 
@@ -37,6 +37,11 @@ namespace WebApi.Data_Access_Later
         {
             db.BusinessWorkTypes.Remove(db.BusinessWorkTypes.Find(id));
             db.SaveChanges();
+        }
+
+        public bool IsThereAnyBusinessWorkType(int id)
+        {
+            return db.BusinessWorkTypes.Any(x => x.id == id);
         }
     }
 }

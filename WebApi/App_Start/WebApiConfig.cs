@@ -14,12 +14,26 @@ namespace WebApi
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.MessageHandlers.Add(new APIKeyHandler());
+            HttpConfiguration config2 = GlobalConfiguration.Configuration;
 
+            config2.Formatters.JsonFormatter
+                        .SerializerSettings
+                        .ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+            /*config.Routes.MapHttpRoute(
+                name: "Api",
+                routeTemplate: "api/{controller}/{action}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
+                name: "IdApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );*/
             config.Routes.MapHttpRoute(
                 name: "adminLogin",
                 routeTemplate: "api/{controller}/{username}/{password}",

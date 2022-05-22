@@ -30,6 +30,7 @@ namespace WebApi.Models
         public string address { get; set; }
         public Nullable<System.DateTime> creation_date { get; set; }
         public string location { get; set; }
+        public string user_key { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BusinessRating> BusinessRatings { get; set; }

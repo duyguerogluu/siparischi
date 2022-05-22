@@ -18,5 +18,6 @@ namespace WebApi.Models
         public string username { get; set; }
         public string password { get; set; }
         public string status { get; set; }
+        public string admin_key { get; set; }
     }
 }
