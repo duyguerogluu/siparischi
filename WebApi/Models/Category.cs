@@ -11,7 +11,8 @@ namespace WebApi.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Category
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,10 +22,21 @@ namespace WebApi.Models
         }
     
         public int id { get; set; }
+
+
+        [Required(ErrorMessage = "Kategori adý boþ geçilemez.")]
         public string category_name { get; set; }
+
+        [Required(ErrorMessage = "Resim boþ geçilemez.")]
         public string image_name { get; set; }
+
+        [Required(ErrorMessage = "Statü boþ geçilemez.")]
         public string status { get; set; }
+
+        [Required(ErrorMessage = "Oluþturma Tarihi boþ geçilemez.")]
         public Nullable<System.DateTime> creation_date { get; set; }
+
+        [Required(ErrorMessage = "Ýþletme boþ geçilemez.")]
         public Nullable<int> business_id { get; set; }
     
         public virtual Business Business { get; set; }

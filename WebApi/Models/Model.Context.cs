@@ -31,7 +31,7 @@ namespace WebApi.Models
         public virtual DbSet<BusinessRating> BusinessRatings { get; set; }
         public virtual DbSet<BusinessType> BusinessTypes { get; set; }
         public virtual DbSet<BusinessWorkType> BusinessWorkTypes { get; set; }
-        public virtual DbSet<Campaign> ProductRatings { get; set; }
+        public virtual DbSet<Campaign> Campaigns { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<OrderType> OrderTypes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
