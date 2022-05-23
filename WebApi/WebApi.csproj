@@ -131,11 +131,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BusinessHourController.cs" />
+    <Compile Include="Controllers\BusinessRatingController.cs" />
+    <Compile Include="Controllers\BusinessTypeController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\OrderTypeController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Data_Access_Later\BusinessHourDAL.cs" />
+    <Compile Include="Data_Access_Later\BusinessRatingDAL.cs" />
+    <Compile Include="Data_Access_Later\BusinessTypeDAL.cs" />
     <Compile Include="Data_Access_Later\CampaignDAL.cs" />
     <Compile Include="Data_Access_Later\OrderTypeDAL.cs" />
+    <Compile Include="Data_Access_Later\ProductDAL.cs" />
+    <Compile Include="Data_Access_Later\ProductRatingDAL.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

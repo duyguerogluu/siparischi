@@ -11,12 +11,18 @@ namespace WebApi.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class BusinessRating
     {
         public int id { get; set; }
+        [Required(ErrorMessage = "Puan boþ geçilemez.")]
         public Nullable<int> point_value { get; set; }
+
+        [Required(ErrorMessage = "Þirket adý boþ geçilemez.")]
         public Nullable<int> business_id { get; set; }
+
+        [Required(ErrorMessage = "Kullanýcý adý boþ geçilemez.")]
         public Nullable<int> user_id { get; set; }
     
         public virtual Business Business { get; set; }

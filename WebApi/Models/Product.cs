@@ -11,7 +11,8 @@ namespace WebApi.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,13 +22,29 @@ namespace WebApi.Models
         }
     
         public int id { get; set; }
+
+        [Required(ErrorMessage = "Ürün Adý tarihi boþ geçilemez.")]
         public string product_name { get; set; }
+
+        [Required(ErrorMessage = "Kampanya Fotosu boþ geçilemez.")]
         public string image_name { get; set; }
+
+        [Required(ErrorMessage = "Açýklama boþ geçilemez.")]
         public string detail { get; set; }
+
+        [Required(ErrorMessage = "Fiyat boþ geçilemez.")]
         public Nullable<double> price { get; set; }
+
+        [Required(ErrorMessage = "Kampanyalý Fiyat boþ geçilemez.")]
         public Nullable<double> discounted_price { get; set; }
+
+        [Required(ErrorMessage = "Kampanya statüsü boþ geçilemez.")]
         public Nullable<bool> campaign_status { get; set; }
+
+        [Required(ErrorMessage = "Kampanya Baþlangýç tarihi boþ geçilemez.")]
         public Nullable<System.DateTime> creation_date { get; set; }
+
+        [Required(ErrorMessage = "Aktiflik durumu boþ geçilemez.")]
         public string status { get; set; }
         public Nullable<int> category_id { get; set; }
     
