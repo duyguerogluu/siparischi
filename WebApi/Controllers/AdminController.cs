@@ -8,12 +8,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApi.Models;
+using WebApi.Data_Access_Later;
+using System.Security.Cryptography;
 
 namespace WebApi.Controllers
 {
 
     public class AdminController : ApiController
     {
+        AdminDAL adminDAL = new AdminDAL();
+
         public string GetLogin(string username, string password)
         {
             try
@@ -23,14 +28,14 @@ namespace WebApi.Controllers
                 {
                     con.Open();
                     {
-                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select * from admin where " +
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select admin_key from admin where " +
                             "(username='" + username + "') and " +
                             "(password='" + password + "')", con);
                         DataTable dataTable = new DataTable();
                         sqlDataAdapter.Fill(dataTable);
                         if (dataTable.Rows.Count > 0)
                         {
-                            return "1";
+                            return dataTable.Rows[0].ItemArray[0].ToString();
                         }
                         else
                         {
@@ -70,10 +75,18 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("insert into admin (username,password,status) values (@username,@password,'Aktif')", con))
+                                        String APIKey;
+                                        using (var cryptoProvider = new RNGCryptoServiceProvider())
+                                        {
+                                            byte[] secretKeyByteArray = new byte[32];
+                                            cryptoProvider.GetBytes(secretKeyByteArray);
+                                            APIKey = Convert.ToBase64String(secretKeyByteArray);
+                                        }
+                                        using (SqlCommand cmd = new SqlCommand("insert into admin (username,password,status,admin_key) values (@username,@password,'Aktif',@admin_key)", con))
                                         {
                                             cmd.Parameters.AddWithValue("@username", username);
                                             cmd.Parameters.AddWithValue("@password", password);
+                                            cmd.Parameters.AddWithValue("@admin_key", APIKey);
                                             int i = cmd.ExecuteNonQuery();
                                             con.Close();
                                             if (i == 1)
@@ -125,6 +138,7 @@ namespace WebApi.Controllers
                 return "İşlem başarısız";
             }
         }
+
         public string GetPasswordReset(string id, string oldpassword, string newpassword)
         {
             try
@@ -179,6 +193,15 @@ namespace WebApi.Controllers
                 return "İşlem başarısız";
             }
         }
+        /*
+        public HttpResponseMessage Get(int id)//https://localhost:44378/api/admin/1?apiKey=1
+        {
+            var admin = adminDAL.GeAdminsById(id);
+            if (admin != null)
+                return Request.CreateResponse(HttpStatusCode.OK, admin);
+            else
+                return Request.CreateResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
+        }*/
 
     }
 }

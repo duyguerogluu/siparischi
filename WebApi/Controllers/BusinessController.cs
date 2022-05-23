@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Web.Http;
 
 namespace WebApi.Controllers
@@ -21,25 +22,25 @@ namespace WebApi.Controllers
                 {
                     con.Open();
                     {
-                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select * from business where " +
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select business_key from business where " +
                             "(username='" + username + "') and " +
                             "(password='" + password + "')", con);
                         DataTable dataTable = new DataTable();
                         sqlDataAdapter.Fill(dataTable);
                         if (dataTable.Rows.Count > 0)
                         {
-                            return "Giriş Başarılı";
+                            return dataTable.Rows[0].ItemArray[0].ToString();
                         }
                         else
                         {
-                            return "Giriş Başarısız";
+                            return "0";
                         }
                     }
                 }
             }
             catch (Exception)
             {
-                return "Giriş Yapılamadı";
+                return "0";
             }
 
         }
@@ -71,7 +72,14 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("insert into business (username,password,business_name,status,phone_number,email,city,district,neighbourhood,situation,starting_date,ending_date,image_name,location,business_type_id) values (@username,@password,@business_name,@status,@phone_number,@email,@city,@district,@neighbourhood,@situation,@starting_date,@ending_date,@image_name,@location,@business_type_id)", con))
+                                        String APIKey;
+                                        using (var cryptoProvider = new RNGCryptoServiceProvider())
+                                        {
+                                            byte[] secretKeyByteArray = new byte[32];
+                                            cryptoProvider.GetBytes(secretKeyByteArray);
+                                            APIKey = Convert.ToBase64String(secretKeyByteArray);
+                                        }
+                                        using (SqlCommand cmd = new SqlCommand("insert into business (username,password,business_name,status,phone_number,email,city,district,neighbourhood,situation,starting_date,ending_date,image_name,location,business_type_id,business_key) values (@username,@password,@business_name,@status,@phone_number,@email,@city,@district,@neighbourhood,@situation,@starting_date,@ending_date,@image_name,@location,@business_type_id,@business_key)", con))
                                         {
                                             cmd.Parameters.AddWithValue("@username", username);
                                             cmd.Parameters.AddWithValue("@password", password);
@@ -88,6 +96,7 @@ namespace WebApi.Controllers
                                             cmd.Parameters.AddWithValue("@image_name", image_name);
                                             cmd.Parameters.AddWithValue("@location", location);
                                             cmd.Parameters.AddWithValue("@business_type_id", business_type_id);
+                                            cmd.Parameters.AddWithValue("@business_key", APIKey);
                                             int i = cmd.ExecuteNonQuery();
                                             con.Close();
                                             if (i == 1)

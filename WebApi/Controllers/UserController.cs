@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Web.Http;
 
 namespace WebApi.Controllers
@@ -21,14 +22,14 @@ namespace WebApi.Controllers
                 {
                     con.Open();
                     {
-                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select * from [user] where " +
+                        SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("select user_key from [user] where " +
                             "(username='" + username + "') and " +
                             "(password='" + password + "')", con);
                         DataTable dataTable = new DataTable();
                         sqlDataAdapter.Fill(dataTable);
                         if (dataTable.Rows.Count > 0)
                         {
-                            return "1";
+                            return dataTable.Rows[0].ItemArray[0].ToString();
                         }
                         else
                         {
@@ -70,7 +71,14 @@ namespace WebApi.Controllers
                                 {
                                     try
                                     {
-                                        using (SqlCommand cmd = new SqlCommand("insert into [user] (username,password,status,phone_number,email,address,creation_date,location) values (@username,@password,'Aktif',@phone_number,@email,@address,@creation_date,@location)", con))
+                                        String APIKey;
+                                        using (var cryptoProvider = new RNGCryptoServiceProvider())
+                                        {
+                                            byte[] secretKeyByteArray = new byte[32];
+                                            cryptoProvider.GetBytes(secretKeyByteArray);
+                                            APIKey = Convert.ToBase64String(secretKeyByteArray);
+                                        }
+                                        using (SqlCommand cmd = new SqlCommand("insert into [user] (username,password,status,phone_number,email,address,creation_date,location,user_key) values (@username,@password,'Aktif',@phone_number,@email,@address,@creation_date,@location,@user_key)", con))
                                         {
                                             cmd.Parameters.AddWithValue("@username", username);
                                             cmd.Parameters.AddWithValue("@password", password);
@@ -79,6 +87,7 @@ namespace WebApi.Controllers
                                             cmd.Parameters.AddWithValue("@address", address);
                                             cmd.Parameters.AddWithValue("@creation_date", creation_date);
                                             cmd.Parameters.AddWithValue("@location", location);
+                                            cmd.Parameters.AddWithValue("@user_key", APIKey);
 
                                             int i = cmd.ExecuteNonQuery();
                                             con.Close();
