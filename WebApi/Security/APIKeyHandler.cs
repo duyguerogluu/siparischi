@@ -19,15 +19,25 @@ namespace WebApi.Security
             var queryString = request.RequestUri.ParseQueryString();
             var apiKey = queryString["apiKey"];
             AdminDAL adminDAL = new AdminDAL();
+            UserDAL userDAL = new UserDAL();
+            BusinessDAL businessDAL = new BusinessDAL();
             var admin = adminDAL.GetAdminByApiKey(apiKey);
+            var user = userDAL.GetUserByApiKey(apiKey);
+            var business = businessDAL.GetBusinessByApiKey(apiKey);
             if (admin != null)
             {
                 var principal = new ClaimsPrincipal(new GenericIdentity(admin.username, "APIKey"));
                 HttpContext.Current.User = principal;
             }
-            else
+            if (user != null)
             {
-
+                var principal = new ClaimsPrincipal(new GenericIdentity(user.username, "APIKey"));
+                HttpContext.Current.User = principal;
+            }
+            if (business != null)
+            {
+                var principal = new ClaimsPrincipal(new GenericIdentity(business.username, "APIKey"));
+                HttpContext.Current.User = principal;
             }
             return base.SendAsync(request, cancellationToken);
         }

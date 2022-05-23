@@ -133,9 +133,11 @@
     <Compile Include="Controllers\BusinessHourController.cs" />
     <Compile Include="Controllers\CampaignController.cs" />
     <Compile Include="Controllers\OrderTypeController.cs" />
+    <Compile Include="Data_Access_Later\BusinessDAL.cs" />
     <Compile Include="Data_Access_Later\BusinessHourDAL.cs" />
     <Compile Include="Data_Access_Later\CampaignDAL.cs" />
     <Compile Include="Data_Access_Later\OrderTypeDAL.cs" />
+    <Compile Include="Data_Access_Later\UserDAL.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
