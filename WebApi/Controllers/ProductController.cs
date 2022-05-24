@@ -11,7 +11,6 @@ namespace WebApi.Controllers
 {
     public class ProductController : ApiController
     {
-
         ProductDAL productDAL = new ProductDAL();
 
         [Authorize]
@@ -27,15 +26,25 @@ namespace WebApi.Controllers
         [Authorize]
         public HttpResponseMessage Get(int id)//https://localhost:44378/api/product/get/1?apiKey=1
         {
-            var campaign = productDAL.GetProductsById(id);
-            if (campaign != null)
+            var product = productDAL.GetProductsById(id);
+            if (product != null)
                 return Request.CreateResponse(HttpStatusCode.OK, productDAL.GetProductsById(id));
             else
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
         }
 
         [Authorize]
-        public HttpResponseMessage Post(Product product)//https://localhost:44378/api/product?apiKey=1 ---> Content: {"product_name":"BüyükPizza", "image_name":"büyük.jpeg", "detail":"4-6 Kişilik ", "price":"80", "discounted_price":"70", "campaign_status":"1", "creation_date":"11.11.2020", "status":"Aktif", "category_id":"1"}
+        public HttpResponseMessage GetCategoryProduct(int categoryId)//https://localhost:44378/api/category/getcategoryproduct/1?apiKey=1
+        {
+            var product = productDAL.GetProductsByCategoryId(categoryId);
+            if (product != null)
+                return Request.CreateResponse(HttpStatusCode.OK, productDAL.GetProductsByCategoryId(categoryId));
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
+        }
+
+        [Authorize]
+        public HttpResponseMessage Post(Product product)//https://localhost:44378/api/product?apiKey=1 ---> Content: {"product_name":"BüyükPizza", "image_name":"pizza.jpeg", "detail":"4-6 Kişilik", "price":"80", "discounted_price":"70", "campaign_status":"1", "creation_date":"01.01.2022", "status":"Aktif", "category_id":"1"}
         {
             //validation kurallarını sağlamıyorsa
             if (ModelState.IsValid)
@@ -51,7 +60,7 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        public HttpResponseMessage Put(int id, Product product)//https://localhost:44378/api/product/put/3?apiKey=1 --->Content: {"product_name":"BüyükPizza", "image_name":"büyük.jpeg", "detail":"4-6 Kişilik ", "price":"80", "discounted_price":"70", "campaign_status":"1", "creation_date":"11.11.2020", "status":"Aktif", "category_id":"1"}
+        public HttpResponseMessage Put(int id, Product product)//https://localhost:44378/api/product/put/3?apiKey=1 ---> Content: {"product_name":"BüyükPizza", "image_name":"pizza.jpeg", "detail":"4-6 Kişilik", "price":"80", "discounted_price":"70", "campaign_status":"1", "creation_date":"01.01.2022", "status":"Aktif", "category_id":"1"}
         {
             //id ye ait kayıt yoksa
             if (!productDAL.IsThereAnyProduct(id))
@@ -85,6 +94,5 @@ namespace WebApi.Controllers
                 return Request.CreateResponse(HttpStatusCode.NoContent);
             }
         }
-
     }
 }

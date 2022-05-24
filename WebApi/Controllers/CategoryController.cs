@@ -34,7 +34,17 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        public HttpResponseMessage Post(Category category)//https://localhost:44378/api/Category?apiKey=1 ---> Content: {"category_name":"Pizzalar", "image_name":"pizza.jpeg", "status":"Aktif", "creation_date":"1", "business_id":"1"}
+        public HttpResponseMessage GetBusinessCategory(int businessId)//https://localhost:44378/api/category/getbusinesscategory/1?apiKey=1
+        {
+            var category = categoryDAL.GetCategoriesByBusinessId(businessId);
+            if (category != null)
+                return Request.CreateResponse(HttpStatusCode.OK, categoryDAL.GetCategoriesByBusinessId(businessId));
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
+        }
+
+        [Authorize]
+        public HttpResponseMessage Post(Category category)//https://localhost:44378/api/category?apiKey=1 ---> Content: {"category_name":"Pizzalar", "image_name":"pizza.jpeg", "status":"Aktif", "creation_date":"1", "business_id":"1"}
         {
             //validation kurallarını sağlamıyorsa
             if (ModelState.IsValid)
