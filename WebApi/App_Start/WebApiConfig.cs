@@ -24,7 +24,7 @@ namespace WebApi
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            /*config.Routes.MapHttpRoute(
+            config.Routes.MapHttpRoute(
                 name: "Api",
                 routeTemplate: "api/{controller}/{action}",
                 defaults: new { id = RouteParameter.Optional }
@@ -33,7 +33,12 @@ namespace WebApi
                 name: "IdApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            );*/
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetAvarage",
+                routeTemplate: "api/{controller}/{businessId}",
+                defaults: new { id = RouteParameter.Optional }
+            );
             config.Routes.MapHttpRoute(
                 name: "adminLogin",
                 routeTemplate: "api/{controller}/{username}/{password}",

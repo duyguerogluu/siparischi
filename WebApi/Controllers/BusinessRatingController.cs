@@ -34,6 +34,16 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
+        public HttpResponseMessage GetAvarage(int businessId)//https://localhost:44378/api/businessrating/getavarage/1?apiKey=1
+        {
+            var businessRating = businessRatingDAL.GetBusinessRatingsByBusinessIdAverage(businessId);
+            if (businessRating != null)
+                return Request.CreateResponse(HttpStatusCode.OK, businessRatingDAL.GetBusinessRatingsByBusinessIdAverage(businessId));
+            else
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Kayıt bulunamadı");
+        }
+
+        [Authorize]
         public HttpResponseMessage Post(BusinessRating businessRating)//https://localhost:44378/api/businessrating?apiKey=1 ---> Content: {"point_value":"10", "business_id":"1", "user_id":"3""business_work_type_id":"1"}
         {
             //validation kurallarını sağlamıyorsa

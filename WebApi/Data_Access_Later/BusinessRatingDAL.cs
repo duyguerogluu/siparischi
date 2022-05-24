@@ -19,6 +19,12 @@ namespace WebApi.Data_Access_Later
             return db.BusinessRatings.Where(x => x.id == id).ToList();
         }
 
+        public String GetBusinessRatingsByBusinessIdAverage(int businessId)
+        {
+            var rating = db.BusinessRatings.Where(x=> x.business_id == businessId).Select(x=> x.point_value).Average();
+            return rating.ToString();
+        }
+
         public BusinessRating CreateBusinessRating(BusinessRating businessRating)
         {
             db.BusinessRatings.Add(businessRating);
