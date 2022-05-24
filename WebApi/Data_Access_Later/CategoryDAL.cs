@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
-
 using WebApi.Models;
 
 namespace WebApi.Data_Access_Later
@@ -18,6 +17,11 @@ namespace WebApi.Data_Access_Later
         public IEnumerable<Category> GetCategoriesById(int id)
         {
             return db.Categories.Where(x => x.id == id).ToList();
+        }
+
+        public IEnumerable<Category> GetCategoriesByBusinessId(int businessId)
+        {
+            return db.Categories.Where(x => x.business_id == businessId).ToList();
         }
 
         public Category CreateCategory(Category category)

@@ -19,6 +19,11 @@ namespace WebApi.Data_Access_Later
             return db.Products.Where(x => x.id == id).ToList();
         }
 
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
+        {
+            return db.Products.Where(x => x.category_id == categoryId).ToList();
+        }
+
         public Product CreateProduct(Product product)
         {
             db.Products.Add(product);
@@ -43,6 +48,5 @@ namespace WebApi.Data_Access_Later
         {
             return db.Products.Any(x => x.id == id);
         }
-
     }
 }
