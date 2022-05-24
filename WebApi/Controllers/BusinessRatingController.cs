@@ -44,7 +44,7 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        public HttpResponseMessage Post(BusinessRating businessRating)//https://localhost:44378/api/businessrating?apiKey=1 ---> Content: {"point_value":"10", "business_id":"1", "user_id":"3""business_work_type_id":"1"}
+        public HttpResponseMessage Post(BusinessRating businessRating)//https://localhost:44378/api/businessrating?apiKey=1 ---> Content: {"point_value":"10", "business_id":"1", "user_id":"3", "business_work_type_id":"1"}
         {
             //validation kurallarını sağlamıyorsa
             if (ModelState.IsValid)
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        public HttpResponseMessage Put(int id, BusinessRating businessRating)//https://localhost:44378/api/businessrating/put/3?apiKey=1 ---> Content: {"point_value":"10", "business_id":"1", "user_id":"3""business_work_type_id":"1"}
+        public HttpResponseMessage Put(int id, BusinessRating businessRating)//https://localhost:44378/api/businessrating/put/3?apiKey=1 ---> Content: {"point_value":"10", "business_id":"1", "user_id":"3", "business_work_type_id":"1"}
         {
             //id ye ait kayıt yoksa
             if (!businessRatingDAL.IsThereAnyBusinessRating(id))

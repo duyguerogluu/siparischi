@@ -137,6 +137,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\OrderTypeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\ProductRatingController.cs" />
     <Compile Include="Data_Access_Later\BusinessDAL.cs" />
     <Compile Include="Data_Access_Later\BusinessHourDAL.cs" />
     <Compile Include="Data_Access_Later\BusinessRatingDAL.cs" />
@@ -145,6 +146,7 @@
     <Compile Include="Data_Access_Later\CategoryDAL.cs" />
     <Compile Include="Data_Access_Later\OrderTypeDAL.cs" />
     <Compile Include="Data_Access_Later\ProductDAL.cs" />
+    <Compile Include="Data_Access_Later\ProductRatingDAL.cs" />
     <Compile Include="Data_Access_Later\UserDAL.cs" />
     <Compile Include="Models\Admin.cs">
       <DependentUpon>Model.tt</DependentUpon>

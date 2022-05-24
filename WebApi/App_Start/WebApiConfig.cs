@@ -35,8 +35,13 @@ namespace WebApi
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
-                name: "GetAvarage",
+                name: "GetAvarageBusiness",
                 routeTemplate: "api/{controller}/{businessId}",
+                defaults: new { id = RouteParameter.Optional }
+            );
+            config.Routes.MapHttpRoute(
+                name: "GetAvarageProduct",
+                routeTemplate: "api/{controller}/{productId}",
                 defaults: new { id = RouteParameter.Optional }
             );
             config.Routes.MapHttpRoute(
